@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propuesta de Trabajo — XG Grupo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: #f0ece4; }
+
+    body {
+      font-family: 'Georgia', serif;
+      color: #1a1a1a;
+      max-width: 860px;
+      margin: 0 auto;
+      background: #fff;
+      min-height: 100vh;
+    }
+
+    :root {
+      --gold: #C9A84C;
+      --ink: #0A0A0A;
+      --cream: #f9f6f0;
+    }
+
+    /* PORTADA */
+    .cover {
+      background: var(--ink);
+      color: #fff;
+      padding: 5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.12) 0%, transparent 60%);
+    }
+    .cover-logo {
+      font-size: 3rem; font-weight: 700;
+      letter-spacing: .2em; color: var(--gold);
+      text-transform: uppercase; margin-bottom: .3rem;
+    }
+    .cover-logo span { color: rgba(255,255,255,.4); font-weight: 300; }
+    .cover-line { width: 60px; height: 2px; background: var(--gold); margin: 1.5rem 0; }
+    .cover-title {
+      font-size: 2.2rem; font-weight: 700;
+      color: #fff; line-height: 1.2; margin-bottom: .8rem;
+    }
+    .cover-title em { color: var(--gold); font-style: italic; }
+    .cover-sub {
+      font-size: 1rem; color: rgba(255,255,255,.5);
+      letter-spacing: .05em;
+    }
+    .cover-meta {
+      margin-top: 4rem;
+      display: flex; gap: 3rem; flex-wrap: wrap;
+    }
+    .cover-meta-item { }
+    .cover-meta-label {
+      font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .3rem;
+    }
+    .cover-meta-val {
+      font-size: 14px; color: rgba(255,255,255,.7);
+    }
+
+    /* CONTENIDO */
+    .doc { padding: 3rem 4rem; }
+
+    .section { margin-bottom: 3.5rem; }
+
+    .section-label {
+      font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .6rem;
+      display: flex; align-items: center; gap: .8rem;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(201,168,76,.3), transparent);
+    }
+
+    h2 {
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 1rem; line-height: 1.2;
+    }
+    h2 em { color: var(--gold); font-style: italic; }
+
+    h3 {
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--ink); margin-bottom: .6rem;
+    }
+
+    p {
+      font-size: 14.5px; line-height: 1.8;
+      color: #444; margin-bottom: .8rem;
+    }
+
+    /* PROYECTO CARD */
+    .proj-card {
+      border: 1px solid #e8e0d0;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .proj-head {
+      background: var(--ink);
+      padding: 1.2rem 1.6rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+    }
+    .proj-head-left { }
+    .proj-tag {
+      font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .3rem;
+    }
+    .proj-name {
+      font-size: 1.1rem; font-weight: 700; color: #fff;
+    }
+    .proj-badge {
+      font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 2px; white-space: nowrap;
+      font-weight: 600;
+    }
+    .badge-done { background: rgba(201,168,76,.15); color: var(--gold); border: 1px solid rgba(201,168,76,.3); }
+    .badge-next { background: rgba(255,255,255,.08); color: rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.1); }
+    .badge-future { background: transparent; color: rgba(255,255,255,.3); border: 1px solid rgba(255,255,255,.08); }
+
+    .proj-body { padding: 1.4rem 1.6rem; background: var(--cream); }
+    .proj-desc { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 1rem; }
+
+    .deliverables { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+    .deliverables li {
+      font-size: 13.5px; color: #444;
+      display: flex; align-items: flex-start; gap: .6rem; line-height: 1.5;
+    }
+    .deliverables li::before {
+      content: '—'; color: var(--gold); flex-shrink: 0; margin-top: 1px;
+    }
+
+    .subproj { margin-top: 1.2rem; }
+    .subproj-title {
+      font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+      color: #888; margin-bottom: .8rem; padding-bottom: .4rem;
+      border-bottom: 1px solid #e8e0d0;
+    }
+    .subproj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .subproj-card {
+      background: #fff; border: 1px solid #e8e0d0;
+      border-radius: 3px; padding: 1rem 1.1rem;
+    }
+    .subproj-card-tag {
+      font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .4rem;
+    }
+    .subproj-card-name {
+      font-size: 13.5px; font-weight: 700; color: var(--ink);
+      margin-bottom: .5rem;
+    }
+    .subproj-card-desc {
+      font-size: 12.5px; color: #666; line-height: 1.6;
+    }
+
+    /* TABLA FASES */
+    .phases { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+    .phases th {
+      background: var(--ink); color: var(--gold);
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+      padding: .8rem 1rem; text-align: left; font-weight: 600;
+    }
+    .phases td {
+      padding: .8rem 1rem; font-size: 13.5px; color: #444;
+      border-bottom: 1px solid #eee; vertical-align: top;
+    }
+    .phases tr:last-child td { border-bottom: none; }
+    .phases tr:nth-child(even) td { background: var(--cream); }
+    .phase-num {
+      font-weight: 700; color: var(--ink); white-space: nowrap;
+    }
+    .phase-status {
+      font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      font-weight: 600; white-space: nowrap;
+    }
+    .st-done { color: #2d8a4e; }
+    .st-next { color: var(--gold); }
+    .st-tbd { color: #999; }
+
+    /* INVERSIÓN */
+    .invest-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: #e8e0d0;
+      border: 1px solid #e8e0d0; margin-top: .5rem;
+    }
+    .invest-item {
+      background: var(--cream); padding: 1.4rem 1.2rem; text-align: center;
+    }
+    .invest-item.total { background: var(--ink); }
+    .invest-label {
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+      color: #888; margin-bottom: .5rem;
+    }
+    .invest-item.total .invest-label { color: rgba(255,255,255,.4); }
+    .invest-amount {
+      font-size: 1.6rem; font-weight: 700; color: var(--ink);
+      font-family: Georgia, serif;
+    }
+    .invest-item.total .invest-amount { color: var(--gold); }
+    .invest-sub {
+      font-size: 11px; color: #999; margin-top: .3rem;
+    }
+    .invest-item.total .invest-sub { color: rgba(255,255,255,.3); }
+
+    /* CONDICIONES */
+    .cond-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .cond-list li {
+      font-size: 14px; color: #444; line-height: 1.6;
+      padding-left: 1.2rem; position: relative;
+    }
+    .cond-list li::before {
+      content: '·'; position: absolute; left: 0;
+      color: var(--gold); font-size: 1.2rem; line-height: 1.3;
+    }
+
+    /* FIRMA */
+    .firma {
+      margin-top: 3rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .firma-box { }
+    .firma-label {
+      font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+      color: #888; margin-bottom: 3rem;
+    }
+    .firma-line {
+      border-top: 1px solid #ccc; padding-top: .6rem;
+    }
+    .firma-name { font-size: 13px; font-weight: 700; color: var(--ink); }
+    .firma-role { font-size: 12px; color: #888; }
+
+    /* FOOTER DOC */
+    .doc-footer {
+      background: var(--ink); color: rgba(255,255,255,.3);
+      padding: 1.5rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; letter-spacing: .1em;
+    }
+    .doc-footer span { color: var(--gold); }
+
+    @media print {
+      html { background: #fff; }
+      .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .proj-head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .phases th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .invest-item.total { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .doc-footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    @media (max-width: 640px) {
+      .cover { padding: 3rem 1.5rem; }
+      .doc { padding: 2rem 1.5rem; }
+      .subproj-grid { grid-template-columns: 1fr; }
+      .invest-grid { grid-template-columns: 1fr; }
+      .firma { grid-template-columns: 1fr; }
+      .doc-footer { flex-direction: column; gap: .5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="cover">
+  <div class="cover-logo">XG <span>Grupo</span></div>
+  <div class="cover-line"></div>
+  <div class="cover-title">Propuesta de <em>Trabajo</em><br>y Desarrollo Digital</div>
+  <p class="cover-sub">Ecosistema web · Plataforma de inversión · Herramientas IA</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Preparado por</div>
+      <div class="cover-meta-val">Equipo Tecnológico</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Preparado para</div>
+      <div class="cover-meta-val">XG Grupo</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Fecha</div>
+      <div class="cover-meta-val">Mayo 2026</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Versión</div>
+      <div class="cover-meta-val">v1.0</div>
+    </div>
+  </div>
+</div>
+
+<!-- DOCUMENTO -->
+<div class="doc">
+
+  <!-- INTRODUCCIÓN -->
+  <div class="section">
+    <div class="section-label">Contexto</div>
+    <h2>Un grupo. <em>Una visión digital.</em></h2>
+    <p>XG Grupo opera a través de seis empresas en sectores tan diversos como la inmobiliaria, la construcción, la gastronomía y el turismo. Esta propuesta define el ecosistema digital completo que necesita el grupo para operar, crecer y captar inversión de forma profesional.</p>
+    <p>El trabajo se estructura en tres bloques: la presencia digital del grupo, la plataforma de inversión de Atrezze Homes y las herramientas de inteligencia artificial para análisis inmobiliario.</p>
+  </div>
+
+  <!-- BLOQUE 1 — WEB GRUPO -->
+  <div class="section">
+    <div class="section-label">Bloque 01</div>
+    <h2>Web corporativa <em>XG Grupo</em></h2>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <div class="proj-head-left">
+          <div class="proj-tag">Web · xggrupo.com</div>
+          <div class="proj-name">Página del grupo — paraguas</div>
+        </div>
+        <div class="proj-badge badge-done">Demo lista ✓</div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">Página principal del grupo que presenta las seis empresas, transmite la identidad premium del grupo y dirige a cada negocio. Bilingüe ES/EN, diseño negro/dorado, modal interactivo por empresa.</p>
+        <ul class="deliverables">
+          <li>Diseño premium negro/dorado adaptado a la identidad XG</li>
+          <li>Presentación de las 6 empresas con modal de detalle interactivo</li>
+          <li>Bilingüe ES/EN con toggle</li>
+          <li>Responsive — móvil, tablet y escritorio</li>
+          <li>Conectada al dominio xggrupo.com vía Cloudflare</li>
+          <li>Botón de contacto WhatsApp del grupo</li>
+        </ul>
+
+        <div class="subproj" style="margin-top:1.2rem;">
+          <div class="subproj-title">Páginas individuales por empresa — pendiente definir necesidades con Pedro</div>
+          <div class="subproj-grid">
+            <div class="subproj-card">
+              <div class="subproj-card-tag">Construcción & decoración</div>
+              <div class="subproj-card-name">Global Business Gallery</div>
+              <div class="subproj-card-desc">— Crear dominio<br>— Crear página web<br>— Definir contenido y necesidades</div>
+            </div>
+            <div class="subproj-card">
+              <div class="subproj-card-tag">Importación · China</div>
+              <div class="subproj-card-name">GBG China</div>
+              <div class="subproj-card-desc">— Crear dominio<br>— Crear página web<br>— Definir contenido y necesidades</div>
+            </div>
+            <div class="subproj-card">
+              <div class="subproj-card-tag">Inmobiliaria & inversión</div>
+              <div class="subproj-card-name">Atrezze Homes</div>
+              <div class="subproj-card-desc">— Crear dominio<br>— Plataforma completa (ver Bloque 02)<br>— Definir contenido y necesidades</div>
+            </div>
+            <div class="subproj-card">
+              <div class="subproj-card-tag">Construcción & instalaciones</div>
+              <div class="subproj-card-name">AXU Sistemas Técnicos</div>
+              <div class="subproj-card-desc">— Crear dominio<br>— Crear página web<br>— Definir contenido y necesidades</div>
+            </div>
+            <div class="subproj-card">
+              <div class="subproj-card-tag">Turismo eco & naturaleza</div>
+              <div class="subproj-card-name">Axara Nature Resorts</div>
+              <div class="subproj-card-desc">— Crear dominio<br>— Crear página web<br>— Definir contenido y necesidades</div>
+            </div>
+            <div class="subproj-card">
+              <div class="subproj-card-tag">Hostelería & ocio</div>
+              <div class="subproj-card-name">Xtreet Food Gallery</div>
+              <div class="subproj-card-desc">— Crear dominio<br>— Crear página web<br>— Definir contenido y necesidades</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 2 — ATREZZE -->
+  <div class="section">
+    <div class="section-label">Bloque 02</div>
+    <h2>Plataforma <em>Atrezze Homes</em></h2>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <div class="proj-head-left">
+          <div class="proj-tag">Plataforma · atrezze.xggrupo.com</div>
+          <div class="proj-name">Atrezze Invest — Portal de socios e inversores</div>
+        </div>
+        <div class="proj-badge badge-next">Siguiente</div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">Portal privado para los socios actuales del grupo. Permite visualizar proyectos de inversión abiertos (inmobiliaria, fincas, paneles solares, etc.) y expresar interés de participación indicando el porcentaje o monto deseado.</p>
+        <ul class="deliverables">
+          <li>Catálogo de proyectos abiertos a inversión con ficha completa</li>
+          <li>Cada proyecto: descripción, monto total, % disponible, rentabilidad estimada</li>
+          <li>Tipos de activo: vivienda, finca, solar, energía, negocio</li>
+          <li>Formulario de participación: "quiero el X% / quiero el proyecto completo"</li>
+          <li>Acceso directo por URL — sin login en fase inicial</li>
+          <li>Notificación al equipo cuando alguien expresa interés</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <div class="proj-head-left">
+          <div class="proj-tag">Marketplace · atrezze.xggrupo.com/venta</div>
+          <div class="proj-name">Atrezze Market — Activos a la venta (público)</div>
+        </div>
+        <div class="proj-badge badge-next">Siguiente</div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">Sección pública de activos ya adquiridos, valorizados (reformados, mejorados) y listos para la venta. Funciona como una inmobiliaria digital donde cualquier persona puede ver y contactar para comprar.</p>
+        <ul class="deliverables">
+          <li>Listado de activos con fotos, características y precio</li>
+          <li>Ficha individual por activo: estado, mejoras realizadas, ubicación</li>
+          <li>Filtros: tipo de activo, precio, zona, estado</li>
+          <li>Botón de contacto directo (WhatsApp / formulario)</li>
+          <li>Acceso público — sin restricción</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 3 — IA -->
+  <div class="section">
+    <div class="section-label">Bloque 03</div>
+    <h2>Herramientas <em>IA Inmobiliaria</em></h2>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <div class="proj-head-left">
+          <div class="proj-tag">Herramienta interna · Atrezze Valora</div>
+          <div class="proj-name">Motor de valoración y análisis de mercado con IA</div>
+        </div>
+        <div class="proj-badge badge-future">A definir</div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">Herramienta privada para el equipo de Atrezze Homes que resuelve el problema de valorar activos en zonas sin testigos de obra nueva y medir demanda latente donde no hay transacciones recientes.</p>
+        <ul class="deliverables">
+          <li>Integración con datos de Idealista / Fotocasa / Catastro / INE</li>
+          <li>Algoritmo de coeficientes para equiparar segunda mano con obra nueva</li>
+          <li>Variables: antigüedad, reforma, ascensor, ocupación, cercanía transporte</li>
+          <li>Índice de demanda latente por zona — señal aunque no haya transacciones</li>
+          <li>Buscador en lenguaje natural: "chalet 3 hab cerca del metro en Sevilla"</li>
+          <li>Ranking de opciones con justificación comparativa por IA</li>
+          <li>Compatible con exportaciones de Octoparse (herramienta que ya usa Pedro)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASES -->
+  <div class="section">
+    <div class="section-label">Planificación</div>
+    <h2>Fases de <em>ejecución</em></h2>
+    <table class="phases">
+      <thead>
+        <tr>
+          <th>Fase</th>
+          <th>Entregable</th>
+          <th>Plazo</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="phase-num">Fase 1</td>
+          <td>Web XG Grupo — página del grupo completa y publicada en xggrupo.com</td>
+          <td>1 semana</td>
+          <td class="phase-status st-done">Demo lista</td>
+        </tr>
+        <tr>
+          <td class="phase-num">Fase 2</td>
+          <td>Atrezze Invest — portal de socios con proyectos abiertos a inversión</td>
+          <td>2–3 semanas</td>
+          <td class="phase-status st-next">Siguiente</td>
+        </tr>
+        <tr>
+          <td class="phase-num">Fase 3</td>
+          <td>Atrezze Market — marketplace público de activos a la venta</td>
+          <td>1–2 semanas</td>
+          <td class="phase-status st-next">Siguiente</td>
+        </tr>
+        <tr>
+          <td class="phase-num">Fase 4</td>
+          <td>Webs individuales de las demás empresas del grupo</td>
+          <td>A definir</td>
+          <td class="phase-status st-tbd">Por definir</td>
+        </tr>
+        <tr>
+          <td class="phase-num">Fase 5</td>
+          <td>Atrezze Valora — motor de IA para valoración y análisis de mercado</td>
+          <td>A definir</td>
+          <td class="phase-status st-tbd">Por definir</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- INVERSIÓN -->
+  <div class="section">
+    <div class="section-label">Inversión</div>
+    <h2>Resumen <em>económico</em></h2>
+    <p>Los importes se definen en reunión con Pedro una vez confirmado el alcance completo. A continuación la estructura orientativa:</p>
+    <div class="invest-grid">
+      <div class="invest-item">
+        <div class="invest-label">Bloque 01 — Web grupo</div>
+        <div class="invest-amount">A definir</div>
+        <div class="invest-sub">Setup + hosting anual</div>
+      </div>
+      <div class="invest-item">
+        <div class="invest-label">Bloque 02 — Atrezze</div>
+        <div class="invest-amount">A definir</div>
+        <div class="invest-sub">Plataforma invest + market</div>
+      </div>
+      <div class="invest-item total">
+        <div class="invest-label">Bloque 03 — IA</div>
+        <div class="invest-amount">A definir</div>
+        <div class="invest-sub">Motor valoración + análisis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONDICIONES -->
+  <div class="section">
+    <div class="section-label">Condiciones</div>
+    <h2>Términos <em>generales</em></h2>
+    <ul class="cond-list">
+      <li>El trabajo se ejecuta por fases — cada fase se presupuesta y aprueba de forma independiente.</li>
+      <li>La demo de la web del grupo (Fase 1) se entrega sin coste como muestra del trabajo.</li>
+      <li>Los importes de cada fase se acuerdan antes de iniciar el desarrollo correspondiente.</li>
+      <li>El cliente provee logos en alta calidad (PNG/SVG), textos y materiales gráficos necesarios.</li>
+      <li>El alojamiento web corre a cargo de la infraestructura Cloudflare gestionada por el Equipo Tecnológico.</li>
+      <li>Mantenimiento y actualizaciones de contenido incluidos en cuota mensual a definir.</li>
+      <li>Los dominios y sus renovaciones son responsabilidad del cliente.</li>
+    </ul>
+  </div>
+
+  <!-- FIRMA -->
+  <div class="section">
+    <div class="section-label">Aceptación</div>
+    <h2>Firma y <em>conformidad</em></h2>
+    <p>La firma de este documento implica la aceptación de los términos descritos y el inicio formal de la colaboración.</p>
+
+    <div class="firma">
+      <div class="firma-box">
+        <div class="firma-label">Por el proveedor</div>
+        <div class="firma-line">
+          <div class="firma-name">Equipo Tecnológico</div>
+          <div class="firma-role">&nbsp;</div>
+        </div>
+      </div>
+      <div class="firma-box">
+        <div class="firma-label">Por el cliente — XG Grupo</div>
+        <div class="firma-line">
+          <div class="firma-name">Pedro González</div>
+          <div class="firma-role">XG Grupo · Atrezze Homes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <div><span>XG Grupo</span> × Equipo Tecnológico — Propuesta de Trabajo v1.0</div>
+  <div>Mayo 2026 · Confidencial</div>
+</div>
+
+</body>
+</html>
